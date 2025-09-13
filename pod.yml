@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: converter
+  labels:
+    components: frontend
+spec:
+  containers:
+    - name: converter
+      image: antonlarichev/conv-app:1.2
+      ports:
+        - containerPort: 80
+      resources:
+        limits:
+          memory: 128Mi
+          cpu: 500m
