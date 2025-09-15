@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: converter-deployment
+spec:
+  replicas: 1
+  selector:
+    # а почему тут matchLabels?
+    matchLabels:
+      components: backend
+  # шаблон, по которому будут разворачиваться реплики?
+  template:
+    metadata:
+      labels:
+        components: backend
+    spec:
+      containers:
+        - name: converter
+          image: antonlarichev/conv-app:1.2
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
