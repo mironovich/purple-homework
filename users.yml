@@ -1,0 +1,21 @@
+users:
+  - name: Alex
+    age: 30
+    is_admin: yes
+    position: manager
+    skills:
+      - name: balls scratching
+        level: 5
+        description: |
+          can scratch balls
+          every bucking day
+    location:
+      country: usa
+      city: new york
+      street: lenina
+      building: 3
+      room: 14
+    pets:
+      - name: trump
+        breed: cocker
+        can_meow: no
