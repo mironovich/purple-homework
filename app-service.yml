@@ -9,4 +9,4 @@ spec:
     components: frontend
   ports:
     - port: 80
-      targetPort: 3000
+      protocol: TCP
