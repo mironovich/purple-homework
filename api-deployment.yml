@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: converter-api-deployment
+  namespace: converter-namespace
+spec:
+  replicas: 1
+  selector:
+    # а почему тут matchLabels?
+    matchLabels:
+      components: backend
+  # шаблон, по которому будут разворачиваться реплики?
+  template:
+    metadata:
+      namespace: converter-namespace
+      labels:
+        components: backend
+    spec:
+      containers:
+        - name: converter-api
+          image: antonlarichev/conv-api:1.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: AMQP_EXCHANGE
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: AMQP_EXCHANGE
+            - name: AMQP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: AMQP_USER
+            - name: AMQP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: AMQP_PASSWORD
+            - name: AMQP_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: AMQP_HOSTNAME
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          volumeMounts:
+            - name: converter-api-data
+              mountPath: /opt/app/uploads
+      volumes:
+        - name: converter-api-data
+          persistentVolumeClaim:
+            claimName: converter-api-pvc
