@@ -2,12 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbitmq-deployment
+  namespace: converter-namespace
 spec:
   selector:
     matchLabels:
       components: rabbitmq
   template:
     metadata:
+      namespace: converter-namespace
       labels:
         components: rabbitmq
     spec:
@@ -22,9 +24,15 @@ spec:
             - containerPort: 5672
           env:
             - name: SEED_USERNAME
-              value: demo
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: SEED_USERNAME
             - name: SEED_USER_PASSWORD
-              value: demo
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: SEED_USER_PASSWORD
           volumeMounts:
             - name: rabbitmq-data
               mountPath: /var/lib/rabbitmq
