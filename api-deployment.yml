@@ -50,6 +50,6 @@ spec:
             - name: converter-api-data
               mountPath: /opt/app/uploads
       volumes:
-        name: converter-api-data
-        persistentVolumeClaim:
-          claimName: converter-api-pvc
+        - name: converter-api-data
+          persistentVolumeClaim:
+            claimName: converter-api-pvc
