@@ -24,3 +24,9 @@ spec:
             limits:
               memory: 512Mi
               cpu: 500m
+          env:
+            - name: VITE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: converter-config
+                  key: VITE_DOMAIN
