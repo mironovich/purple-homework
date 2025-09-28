@@ -4,7 +4,7 @@ metadata:
   name: converter-api-deployment
   namespace: converter-namespace
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     # а почему тут matchLabels?
     matchLabels:
