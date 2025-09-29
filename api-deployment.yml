@@ -4,7 +4,7 @@ metadata:
   name: converter-api-deployment
   namespace: converter-namespace
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     # а почему тут matchLabels?
     matchLabels:
@@ -41,6 +41,11 @@ spec:
                 secretKeyRef:
                   name: rabbitmq-secret
                   key: AMQP_HOSTNAME
+            - name: AMQP_QUEUE
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: AMQP_QUEUE
           resources:
             limits:
               memory: 512Mi
