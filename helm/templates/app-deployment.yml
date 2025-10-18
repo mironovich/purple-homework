@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.app.name }}
-          image: "{{ .Values.app.image }}:{{ .Values.app.version }}
+          image: "{{ .Values.app.image }}:{{ .Values.app.version }}"
           ports:
             - containerPort: {{ .Values.app.port }}
           resources:
@@ -26,5 +26,5 @@ spec:
             - name: VITE_DOMAIN
               valueFrom:
                 configMapKeyRef:
-                  name: converter-config
+                  name: "{{ .Values.app.name }}-config"
                   key: VITE_DOMAIN
