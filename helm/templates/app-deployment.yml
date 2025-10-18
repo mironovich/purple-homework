@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.app.name }}-deployment"
+  namespace: "{{ .Values.app.name }}-namespace"
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    # а почему тут matchLabels?
+    matchLabels:
+      components: {{ .Values.app.components }}
+  # шаблон, по которому будут разворачиваться реплики?
+  template:
+    metadata:
+      labels:
+        components: {{ .Values.app.components }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: "{{ .Values.app.image }}:{{ .Values.app.version }}
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          resources:
+            limits: {{ .Values.app.limits | toYaml | nindent 14 }}
+          env:
+            - name: VITE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: converter-config
+                  key: VITE_DOMAIN
