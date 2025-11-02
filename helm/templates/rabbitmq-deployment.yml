@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.rabbitmq.name }}
-          image: "{{ .Values.rabbitmq.image }}:{{ .Values.rabbitmq.name }}"
+          image: "{{ .Values.rabbitmq.image }}:{{ .Values.rabbitmq.version }}"
           resources: {{ .Values.rabbitmq.limits | toYaml | nindent 14 }}
           ports:
             - containerPort: {{ .Values.rabbitmq.port }}

@@ -8,7 +8,11 @@ app:
   limits:
     memory: 512Mi
     cpu: 500m
+  requests:
+    memory: 512Mi
+    cpu: 500m
   domain: conv.test
+
 api:
   name: converter-api
   version: 1.0
@@ -25,7 +29,6 @@ api:
     - AMQP_PASSWORD
     - AMQP_HOSTNAME
     - AMQP_QUEUE
-    - AMQP_QUEUE
 
 rabbitmq:
   name: rabbitmq
@@ -37,7 +40,6 @@ rabbitmq:
     memory: "2Gi"
     cpu: "300m"
   env:
-    - SEED_USERNAME
     - SEED_USERNAME
     - SEED_USER_PASSWORD
 

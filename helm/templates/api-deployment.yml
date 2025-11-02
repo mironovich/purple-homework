@@ -20,7 +20,7 @@ spec:
             - containerPort: {{ .Values.api.port }}
           env:
             {{- range .Values.api.env }}
-            {{- $data := dict "name" $.Values.api.name "env" . }}
+            {{- $data := dict "name" $.Values.rabbitmq.name "env" . }}
             {{- include "env.template" $data | indent 12 }}
             {{- end }}
           resources: {{ .Values.api.limits | toYaml | nindent 14 }}
