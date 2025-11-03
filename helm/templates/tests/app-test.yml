@@ -12,5 +12,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      values: ['{{ .Values.app.name }}-clusterip:{{ .Values.app.port }}/']
+      args: ['{{ .Values.app.name }}-clusterip:{{ .Values.app.port }}/']
   restartPolicy: Never
